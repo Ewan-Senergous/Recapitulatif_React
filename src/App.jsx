@@ -61,6 +61,11 @@ function App() {
     fetchData();
   }, []); // Lancer fetchData et vu que [] => Lance qu'une fois
 
+  const filteredCocktailsList = cocktails.filter(
+    (cocktail) =>
+      cocktail.strCategory === selectedCocktails || selectedCocktails === ""
+  );
+
   console.info(cocktails);
 
   return (
@@ -78,7 +83,7 @@ function App() {
       </select>
       <p>You selected: {selectedCocktails}</p>
 
-      {cocktails.map((cocktail) => (
+      {filteredCocktailsList.map((cocktail) => (
         <CocktailList cocktail={cocktail} key={cocktail.id} />
       ))}
     </div>
