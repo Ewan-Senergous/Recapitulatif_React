@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Blog from "./components/Blog";
 import CocktailList from "./components/CocktailList";
+
 const blogPosts = [
   {
     id: 1,
@@ -43,6 +44,12 @@ const blogPosts = [
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
+  const [selectedCocktails, setSelectedCocktails] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedCocktails(event.target.value);
+  };
+
   const fetchData = () => {
     axios
       .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
@@ -61,11 +68,19 @@ function App() {
       {blogPosts.map((post) => (
         <Blog science={post} key={post.id} />
       ))}
-      <div>
-        {cocktails.map((cocktail) => (
-          <CocktailList cocktail={cocktail} key={cocktail.id} />
-        ))}
-      </div>
+
+      <label htmlFor="cocktails">Choose a cocktail category:</label>
+      <select id="cocktails" value={selectedCocktails} onChange={handleChange}>
+        <option value="">All cocktails</option>
+        <option value="Ordinary Drink">Ordinary Drink</option>
+        <option value="Other / Unknown">Other / Unknown</option>
+        <option value="Cocktail">Cocktail</option>
+      </select>
+      <p>You selected: {selectedCocktails}</p>
+
+      {cocktails.map((cocktail) => (
+        <CocktailList cocktail={cocktail} key={cocktail.id} />
+      ))}
     </div>
   );
 }
