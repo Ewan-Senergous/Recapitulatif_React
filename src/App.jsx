@@ -49,11 +49,11 @@ function App() {
       .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
       .then((response) => setCocktails(response.data.drinks))
       .catch((error) => console.error(error));
-  };
+  }; // Récupérer Données API
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // Lancer fetchData et vu que [] => Lance qu'une fois
 
   console.info(cocktails);
 
