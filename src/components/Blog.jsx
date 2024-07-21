@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
 function Blog({ science }) {
+  const { texte, img } = science;
+
   return (
     <div>
-      <h1>Hello React</h1>
-      <p>{science.title}</p>
-      <p>{science.description}</p>
+      <p>{texte}</p>
+      <img src={img} alt={img} />
     </div>
   );
 }
 
 Blog.propTypes = {
   science: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
+    texte: PropTypes.string.isRequired,
+    img: PropTypes.string,
   }).isRequired,
 };
 
