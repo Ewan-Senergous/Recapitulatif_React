@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Blog from "./components/Blog";
-
+import CocktailList from "./components/CocktailList";
 const blogPosts = [
   {
     id: 1,
@@ -43,17 +43,16 @@ const blogPosts = [
 
 function App() {
   const [cocktails, setCocktails] = useState([]);
-
   const fetchData = () => {
     axios
       .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
       .then((response) => setCocktails(response.data.drinks))
       .catch((error) => console.error(error));
-  };
+  }; // Récupérer Données API
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, []); // Lancer fetchData et vu que [] => Lance qu'une fois
 
   console.info(cocktails);
 
@@ -64,15 +63,10 @@ function App() {
       ))}
       <div>
         {cocktails.map((cocktail) => (
-          <div key={cocktail.id}>
-            <h2>{cocktail.strDrink}</h2>
-            <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-            <p>{cocktail.strInstructions}</p>
-          </div>
+          <CocktailList cocktail={cocktail} key={cocktail.id} />
         ))}
       </div>
     </div>
   );
 }
-
 export default App;
